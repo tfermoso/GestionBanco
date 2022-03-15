@@ -81,4 +81,8 @@ public class BancoController {
         alert.showAndWait();
         stage.close();
     }
+
+    public void setBanco(Banco banco) {
+        this.banco = banco;
+    }
 }

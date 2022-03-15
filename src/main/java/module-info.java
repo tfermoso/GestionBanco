@@ -11,4 +11,5 @@ module com.example.gestionbanco {
 
     opens com.example.gestionbanco to javafx.fxml;
     exports com.example.gestionbanco;
+    exports com.example.gestionbanco.models;
 }
