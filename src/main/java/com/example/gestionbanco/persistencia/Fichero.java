@@ -1,21 +1,34 @@
 package com.example.gestionbanco.persistencia;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
-public class Fichero {
-    Gson gson;
+import com.example.gestionbanco.interfaces.iFichero;
+import com.example.gestionbanco.models.Banco;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-    public Fichero() {
-        GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(Persona.class, new PersonaAdapter());
-        gson = builder.create();
+import java.io.IOException;
 
+public class Fichero implements iFichero {
+
+
+
+    @Override
+    public void guardarDatos(Banco banco, String fichero) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            String json = mapper
+                    .writerWithDefaultPrettyPrinter()
+                    .writeValueAsString(new Banco());
+
+            System.out.println(json);
+        }
+        catch (IOException e) {
+            System.out.println(e.toString());
+
+        }
     }
 
-    public void guardarDatos(Persona banco) {
-        String json=gson.toJson(banco);
-        System.out.println(json);
+    @Override
+    public Banco leerDatos(String fichero) {
+        return null;
     }
-
 }

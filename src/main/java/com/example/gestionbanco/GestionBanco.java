@@ -1,5 +1,6 @@
 package com.example.gestionbanco;
 
+import com.example.gestionbanco.models.Banco;
 import com.example.gestionbanco.persistencia.Persona;
 import com.example.gestionbanco.persistencia.Fichero;
 import javafx.application.Application;
@@ -25,7 +26,7 @@ public class GestionBanco extends Application {
         Persona persona=new Persona("Juan",34);
 
         Fichero fichero=new Fichero();
-        fichero.guardarDatos(persona);
+        fichero.guardarDatos(new Banco(),"t");
         launch();
     }
 }
