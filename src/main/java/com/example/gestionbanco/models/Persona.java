@@ -1,4 +1,4 @@
-package com.example.gestionbanco.persistencia;
+package com.example.gestionbanco.models;
 
 public class Persona {
     public String nombre;

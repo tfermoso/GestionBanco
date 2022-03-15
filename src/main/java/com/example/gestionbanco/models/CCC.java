@@ -62,4 +62,40 @@ public class CCC {
     public List<HashMap<String, String>> getMovimientos() {
         return movimientos;
     }
+
+    public double getSaldoDeCuenta() {
+        return saldoDeCuenta;
+    }
+
+    public void setSaldoDeCuenta(double saldoDeCuenta) {
+        this.saldoDeCuenta = saldoDeCuenta;
+    }
+
+    public String getNombreDelTitular() {
+        return nombreDelTitular;
+    }
+
+    public void setNombreDelTitular(String nombreDelTitular) {
+        this.nombreDelTitular = nombreDelTitular;
+    }
+
+    public long getNumeroDeCuenta() {
+        return numeroDeCuenta;
+    }
+
+    public void setNumeroDeCuenta(long numeroDeCuenta) {
+        this.numeroDeCuenta = numeroDeCuenta;
+    }
+
+    public static int getIdCuenta() {
+        return idCuenta;
+    }
+
+    public static void setIdCuenta(int idCuenta) {
+        CCC.idCuenta = idCuenta;
+    }
+
+    public void setMovimientos(List<HashMap<String, String>> movimientos) {
+        this.movimientos = movimientos;
+    }
 }

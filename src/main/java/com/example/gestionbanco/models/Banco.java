@@ -92,4 +92,8 @@ public class Banco implements iBanco {
                 ", telefono='" + telefono + '\'' +
                 '}';
     }
+
+    public ArrayList<CCC> getCuentas() {
+        return cuentas;
+    }
 }

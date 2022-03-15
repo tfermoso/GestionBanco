@@ -1,10 +1,12 @@
 package com.example.gestionbanco.persistencia;
 
 
+import com.example.gestionbanco.models.Persona;
 import com.example.gestionbanco.interfaces.iFichero;
 import com.example.gestionbanco.models.Banco;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.File;
 import java.io.IOException;
 
 public class Fichero implements iFichero {
@@ -13,13 +15,10 @@ public class Fichero implements iFichero {
 
     @Override
     public void guardarDatos(Banco banco, String fichero) {
-        ObjectMapper mapper = new ObjectMapper();
         try {
-            String json = mapper
-                    .writerWithDefaultPrettyPrinter()
-                    .writeValueAsString(new Banco());
+            ObjectMapper mapper = new ObjectMapper();
 
-            System.out.println(json);
+            mapper.writeValue(new File(fichero), new Persona("Juan",45));
         }
         catch (IOException e) {
             System.out.println(e.toString());
