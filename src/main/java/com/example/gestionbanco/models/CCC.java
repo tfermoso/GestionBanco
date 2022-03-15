@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Random;
 
 public class CCC {
-    private double saldoDeCuenta;
-    private String nombreDelTitular;
-    private long numeroDeCuenta;
-    private static int idCuenta;
-    private List<HashMap<String,String>> movimientos;
+    public double saldoDeCuenta;
+    public String nombreDelTitular;
+    public long numeroDeCuenta;
+    public static int idCuenta;
+    public List<HashMap<String,String>> movimientos;
 
     public CCC(String nombreDelTitular,double saldoDeCuenta) {
         this.saldoDeCuenta = saldoDeCuenta;

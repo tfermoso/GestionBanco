@@ -1,6 +1,7 @@
 package com.example.gestionbanco;
 
-import com.example.gestionbanco.persistencia.Persona;
+import com.example.gestionbanco.models.Banco;
+import com.example.gestionbanco.models.Persona;
 import com.example.gestionbanco.persistencia.Fichero;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,10 +23,15 @@ public class GestionBanco extends Application {
     }
 
     public static void main(String[] args) {
-        Persona persona=new Persona("Juan",34);
-
+        Banco banco;
+        /*
+        banco.crearCuenta("Juan",200);
+        banco.ingresar("Juan",400);
+        banco.ingresar("Juan",500);
+         */
         Fichero fichero=new Fichero();
-        fichero.guardarDatos(persona);
+        //fichero.guardarDatos(banco,"datos-banco.json");
+        banco=fichero.leerDatos("datos-banco.json");
         launch();
     }
 }

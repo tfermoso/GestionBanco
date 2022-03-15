@@ -6,8 +6,8 @@ import com.example.gestionbanco.interfaces.iBanco;
 import java.util.ArrayList;
 
 public class Banco implements iBanco {
-    private ArrayList<CCC> cuentas;
-    private String telefono;
+    public ArrayList<CCC> cuentas;
+    public String telefono;
 
 
     public Banco() {
@@ -92,4 +92,6 @@ public class Banco implements iBanco {
                 ", telefono='" + telefono + '\'' +
                 '}';
     }
+
+
 }
