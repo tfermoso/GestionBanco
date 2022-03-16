@@ -23,15 +23,6 @@ public class GestionBanco extends Application {
     }
 
     public static void main(String[] args) {
-        Banco banco;
-        /*
-        banco.crearCuenta("Juan",200);
-        banco.ingresar("Juan",400);
-        banco.ingresar("Juan",500);
-         */
-        Fichero fichero=new Fichero();
-        //fichero.guardarDatos(banco,"datos-banco.json");
-        banco=fichero.leerDatos("datos-banco.json");
         launch();
     }
 }
