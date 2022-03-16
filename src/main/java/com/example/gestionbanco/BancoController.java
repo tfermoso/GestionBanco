@@ -23,7 +23,7 @@ public class BancoController {
     protected Label lblMensajes,lblcuenta;
 
     @FXML
-    protected AnchorPane panelCrearCuenta;
+    protected AnchorPane panelCrearCuenta,paneVerCuenta;
 
     private Banco banco;
 
@@ -58,6 +58,7 @@ public class BancoController {
 
     @FXML
     protected void menuVerCuentas(){
+        paneVerCuenta.setVisible(true);
         panelCrearCuenta.setVisible(false);
     }
 
@@ -70,6 +71,11 @@ public class BancoController {
         //Stage stage = (Stage) source.getScene().getWindow();
         //stage.close();
         //stage.close();
+    }
+    @FXML
+    protected void mostrarPanelCrearCuenta(){
+        paneVerCuenta.setVisible(false);
+        panelCrearCuenta.setVisible(true);
     }
 
     @FXML

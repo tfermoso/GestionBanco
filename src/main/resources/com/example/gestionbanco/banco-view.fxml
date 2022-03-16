@@ -49,7 +49,7 @@
       <menus>
         <Menu mnemonicParsing="false" text="Cuentas">
           <items>
-            <MenuItem mnemonicParsing="false" text="Crear Cuenta" />
+            <MenuItem mnemonicParsing="false" onAction="#mostrarPanelCrearCuenta" text="Crear Cuenta" />
             <MenuItem mnemonicParsing="false" onAction="#menuVerCuentas" text="Ver cuentas" />
             <Menu mnemonicParsing="false" text="Open Recent" />
             <SeparatorMenuItem mnemonicParsing="false" />
