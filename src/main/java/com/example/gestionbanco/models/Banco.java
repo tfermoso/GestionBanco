@@ -32,7 +32,7 @@ public class Banco implements iBanco {
     @Override
     public void ingresar(String titular, double saldo) {
         cuentas.forEach(ccc -> {
-            if(ccc.getTitular().equals(titular)){
+            if(ccc.getNombreDelTitular().equals(titular)){
                 ccc.setIngreso(saldo);
             }
         });
@@ -66,7 +66,7 @@ public class Banco implements iBanco {
 
     @Override
     public String verCuenta(String nombre) {
-         return  getCuenta(nombre).getDatosCuenta();
+        return  getCuenta(nombre).datosCuenta();
     }
 
     private CCC getCuenta(String titular){
@@ -78,7 +78,7 @@ public class Banco implements iBanco {
         }
         */
         for (CCC c:cuentas) {
-            if(c.getTitular().equals(titular)){
+            if(c.getNombreDelTitular().equals(titular)){
                 return c;
             }
         }
@@ -93,5 +93,11 @@ public class Banco implements iBanco {
                 '}';
     }
 
+    public ArrayList<CCC> getCuentas() {
+        return cuentas;
+    }
 
+    public void setCuentas(ArrayList<CCC> cuentas) {
+        this.cuentas = cuentas;
+    }
 }

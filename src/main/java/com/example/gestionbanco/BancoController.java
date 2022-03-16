@@ -2,6 +2,7 @@ package com.example.gestionbanco;
 
 import com.example.gestionbanco.models.Banco;
 import com.example.gestionbanco.persistencia.Fichero;
+import com.example.gestionbanco.persistencia.FicheroJackson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -28,7 +29,7 @@ public class BancoController {
     private Banco banco;
 
     public BancoController() {
-        Fichero fichero=new Fichero();
+        FicheroJackson fichero=new FicheroJackson();
         banco=fichero.leerDatos("datos-banco.json");
     }
 
@@ -85,7 +86,7 @@ public class BancoController {
         alert.setTitle("Info");
         alert.setContentText("¿Realmente quiere salir?");
         alert.showAndWait();
-        Fichero fichero=new Fichero();
+        FicheroJackson fichero=new FicheroJackson();
         fichero.guardarDatos(banco,"datos-banco.json");
         stage.close();
     }
