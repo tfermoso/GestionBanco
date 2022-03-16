@@ -66,7 +66,13 @@ public class Banco implements iBanco {
 
     @Override
     public String verCuenta(String nombre) {
-        return  getCuenta(nombre).datosCuenta();
+        CCC cuenta=getCuenta(nombre);
+        if(cuenta==null){
+            return "No existe";
+        }else{
+            return  cuenta.datosCuenta();
+        }
+
     }
 
     private CCC getCuenta(String titular){

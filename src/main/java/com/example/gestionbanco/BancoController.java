@@ -1,14 +1,16 @@
 package com.example.gestionbanco;
 
 import com.example.gestionbanco.models.Banco;
+import com.example.gestionbanco.models.CCC;
 import com.example.gestionbanco.persistencia.Fichero;
 import com.example.gestionbanco.persistencia.FicheroJackson;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -19,18 +21,31 @@ public class BancoController {
     Stage stage;
     @FXML
     protected TextField txtNombre,txtSaldo;
-
     @FXML
     protected Label lblMensajes,lblcuenta;
-
     @FXML
     protected AnchorPane panelCrearCuenta,paneVerCuenta;
+    @FXML
+    protected TableView tblCuentas;
+    @FXML
+    protected TableColumn cTitular,cCuenta,cSaldo;
 
     private Banco banco;
 
     public BancoController() {
         FicheroJackson fichero=new FicheroJackson();
         banco=fichero.leerDatos("datos-banco.json");
+    }
+
+    public void showList(){
+        ObservableList<CCC> list = FXCollections.observableArrayList();
+        for (int i = 0; i < banco.getCuentas().size(); i++) {
+            list.add(banco.getCuentas().get(i));
+        }
+        cTitular.setCellValueFactory(new PropertyValueFactory("nombreDelTitular"));
+        cCuenta.setCellValueFactory(new PropertyValueFactory("numeroDeCuenta"));
+        cSaldo.setCellValueFactory(new PropertyValueFactory("saldoDeCuenta"));
+        tblCuentas.setItems(list);
     }
 
     @FXML
@@ -61,6 +76,7 @@ public class BancoController {
     protected void menuVerCuentas(){
         paneVerCuenta.setVisible(true);
         panelCrearCuenta.setVisible(false);
+        showList();
     }
 
     @FXML

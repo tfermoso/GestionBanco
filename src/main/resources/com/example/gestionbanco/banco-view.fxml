@@ -38,12 +38,14 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionbanco.BancoController">
+<VBox prefHeight="400.0" prefWidth="876.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionbanco.BancoController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -84,28 +86,35 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="436.0" prefWidth="722.0" VBox.vgrow="ALWAYS">
       <children>
         <Label fx:id="lblMensajes" alignment="CENTER" layoutX="328.0" layoutY="332.0" prefHeight="27.0" prefWidth="275.0" style="&#10;" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
           <font>
             <Font size="18.0" />
           </font>
         </Label>
-            <Label layoutX="34.0" layoutY="27.0" text="Nombre: " />
-            <TextField fx:id="txtNombre" layoutX="105.0" layoutY="23.0" prefHeight="26.0" prefWidth="358.0" />
-            <AnchorPane id="panelVerCuenta" fx:id="paneVerCuenta" layoutX="16.0" layoutY="49.0" prefHeight="304.0" prefWidth="607.0">
+            <Label layoutX="28.0" layoutY="14.0" text="Nombre: " />
+            <AnchorPane id="panelVerCuenta" fx:id="paneVerCuenta" layoutX="16.0" layoutY="49.0" prefHeight="304.0" prefWidth="840.0" visible="false">
                <children>
-                  <Button layoutX="91.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnMostrarCuenta" prefHeight="26.0" prefWidth="122.0" text="Ver cuenta" />
-                  <Label fx:id="lblcuenta" layoutX="98.0" layoutY="73.0" prefHeight="210.0" prefWidth="454.0" style="-fx-background-color: white; -fx-border-color: black;" />
+                  <Button layoutX="14.0" layoutY="40.0" mnemonicParsing="false" onAction="#btnMostrarCuenta" prefHeight="26.0" prefWidth="122.0" text="Ver cuenta" />
+                  <Label fx:id="lblcuenta" layoutX="14.0" layoutY="79.0" prefHeight="210.0" prefWidth="349.0" style="-fx-background-color: white; -fx-border-color: black;" />
+                  <TableView fx:id="tblCuentas" layoutX="406.0" layoutY="22.0" prefHeight="200.0" prefWidth="407.0">
+                    <columns>
+                      <TableColumn fx:id="cTitular" prefWidth="111.99996948242188" text="Titular" />
+                        <TableColumn fx:id="cCuenta" prefWidth="176.79998779296875" text="Nº de Cuenta" />
+                      <TableColumn fx:id="cSaldo" minWidth="4.0" prefWidth="112.79998779296875" text="Saldo" />
+                    </columns>
+                  </TableView>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="panelCrearCuenta" layoutX="34.0" layoutY="69.0" prefHeight="200.0" prefWidth="432.0" visible="false">
+            <AnchorPane fx:id="panelCrearCuenta" layoutX="14.0" layoutY="78.0" prefHeight="200.0" prefWidth="432.0">
                <children>
-                  <TextField fx:id="txtSaldo" layoutX="72.0" prefHeight="26.0" prefWidth="358.0" />
-                  <Label text="Saldo Inicial:" />
-                  <Button layoutX="79.0" layoutY="48.0" mnemonicParsing="false" onAction="#btnCrearCuenta" prefHeight="26.0" prefWidth="135.0" text="Crear Cuenta" />
+                  <TextField fx:id="txtSaldo" layoutY="23.0" prefHeight="26.0" prefWidth="358.0" />
+                  <Label layoutX="12.0" layoutY="5.0" text="Saldo Inicial:" />
+                  <Button layoutX="6.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnCrearCuenta" prefHeight="26.0" prefWidth="135.0" text="Crear Cuenta" />
                </children>
             </AnchorPane>
+            <TextField fx:id="txtNombre" layoutX="16.0" layoutY="36.0" prefHeight="26.0" prefWidth="358.0" />
       </children>
     </AnchorPane>
   </children>
