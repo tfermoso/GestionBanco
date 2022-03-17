@@ -7,22 +7,29 @@ import com.example.gestionbanco.persistencia.FicheroJackson;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class BancoController {
 
 
     Stage stage;
     @FXML
-    protected TextField txtNombre,txtSaldo;
+    protected TextField txtNombre,txtSaldo,txtCantidad;
     @FXML
-    protected Label lblMensajes,lblcuenta;
+    protected Label lblMensajes,lblcuenta,lblCuentaSeleccionada;
     @FXML
     protected AnchorPane panelCrearCuenta,paneVerCuenta;
     @FXML
@@ -35,6 +42,50 @@ public class BancoController {
     public BancoController() {
         FicheroJackson fichero=new FicheroJackson();
         banco=fichero.leerDatos("datos-banco.json");
+        System.out.println("creando controlador");
+
+    }
+
+    public void initialize() {
+        System.out.println("Inicializando");
+        showList();
+        tblCuentas.setRowFactory(tv -> {
+            TableRow<CCC> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (! row.isEmpty() && event.getButton()== MouseButton.PRIMARY
+                        && event.getClickCount() == 2) {
+                    CCC clickedRow = row.getItem();
+                    lblcuenta.setText(clickedRow.datosCuenta());
+                    lblCuentaSeleccionada.setText(clickedRow.getNombreDelTitular());
+                }
+            });
+            return row ;
+        });
+        cTitular.setCellFactory(TextFieldTableCell.<CCC>forTableColumn());// Defina la celda de la columna dataNameCol como TextFieldTableCell
+      /*  cTitular.setOnEditCommit((TableColumn.CellEditEvent<CCC,String> t) -> { // Crea un evento de celda modificada
+            ((CCC) t.getTableView().getItems().get(t.getTablePosition().getRow())).setNombreDelTitular(t.getNewValue()); // Asignar el nuevo valor a la celda obtenida
+        });
+
+       */
+        cTitular.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent cellEditEvent) {
+                ((CCC) cellEditEvent.getTableView().getItems().get(cellEditEvent.getTablePosition().getRow())).setNombreDelTitular(cellEditEvent.getNewValue().toString());
+            }
+        });
+    }
+
+    private void limpiarTabla(){
+        ObservableList<CCC> list = FXCollections.observableArrayList();
+        list.clear();
+        tblCuentas.setItems(list);
+    }
+    private void llenarTabla(){
+        ObservableList<CCC> list = FXCollections.observableArrayList();
+        for (int i = 0; i < banco.getCuentas().size(); i++) {
+            list.add(banco.getCuentas().get(i));
+        }
+        tblCuentas.setItems(list);
     }
 
     public void showList(){
@@ -71,6 +122,38 @@ public class BancoController {
         }
 
     }
+    @FXML
+    protected void btnOperar(ActionEvent evt){
+
+        if(lblCuentaSeleccionada.getText().equals("")){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setTitle("Info");
+            alert.setContentText("Seleccione una cuenta");
+            alert.showAndWait();
+        }else{
+            String titular=lblCuentaSeleccionada.getText();
+            String cantidad=txtCantidad.getText();
+            if(cantidad.equals("")){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setTitle("Info");
+                alert.setContentText("Indique la cantiadad");
+                alert.showAndWait();
+            }else{
+
+                if(((Button)evt.getSource()).getText().equals("Ingresar")){
+
+                    banco.ingresar(titular,Double.valueOf(cantidad));
+                }else{
+                    banco.retirar(titular,Double.valueOf(cantidad));
+                }
+                txtCantidad.setText("");
+                tblCuentas.refresh();
+            }
+        }
+    }
+
 
     @FXML
     protected void menuVerCuentas(){
