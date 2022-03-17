@@ -18,6 +18,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.converter.DoubleStringConverter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,6 +50,7 @@ public class BancoController {
     public void initialize() {
         System.out.println("Inicializando");
         showList();
+        /*
         tblCuentas.setRowFactory(tv -> {
             TableRow<CCC> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -61,18 +63,10 @@ public class BancoController {
             });
             return row ;
         });
-        cTitular.setCellFactory(TextFieldTableCell.<CCC>forTableColumn());// Defina la celda de la columna dataNameCol como TextFieldTableCell
-      /*  cTitular.setOnEditCommit((TableColumn.CellEditEvent<CCC,String> t) -> { // Crea un evento de celda modificada
-            ((CCC) t.getTableView().getItems().get(t.getTablePosition().getRow())).setNombreDelTitular(t.getNewValue()); // Asignar el nuevo valor a la celda obtenida
-        });
+                 */
 
-       */
-        cTitular.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent cellEditEvent) {
-                ((CCC) cellEditEvent.getTableView().getItems().get(cellEditEvent.getTablePosition().getRow())).setNombreDelTitular(cellEditEvent.getNewValue().toString());
-            }
-        });
+
+
     }
 
     private void limpiarTabla(){
@@ -93,10 +87,29 @@ public class BancoController {
         for (int i = 0; i < banco.getCuentas().size(); i++) {
             list.add(banco.getCuentas().get(i));
         }
-        cTitular.setCellValueFactory(new PropertyValueFactory("nombreDelTitular"));
+        tblCuentas.setEditable(true);
+        cTitular.setCellValueFactory(new PropertyValueFactory<CCC, String>("nombreDelTitular"));
+        cTitular.setCellFactory(TextFieldTableCell.forTableColumn());
         cCuenta.setCellValueFactory(new PropertyValueFactory("numeroDeCuenta"));
-        cSaldo.setCellValueFactory(new PropertyValueFactory("saldoDeCuenta"));
+        //cSaldo.setCellValueFactory(new PropertyValueFactory("saldoDeCuenta"));
+        cSaldo.setCellValueFactory(new PropertyValueFactory<CCC,Double>("saldoDeCuenta"));
         tblCuentas.setItems(list);
+        cTitular.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent cellEditEvent) {
+                ((CCC)cellEditEvent.getRowValue()).setNombreDelTitular(cellEditEvent.getNewValue().toString());
+            }
+        });
+        DoubleStringConverter converter = new DoubleStringConverter();
+        cSaldo.setCellFactory(TextFieldTableCell.<CCC, Double>forTableColumn(converter));
+
+        cSaldo.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent cellEditEvent) {
+                ((CCC)cellEditEvent.getRowValue()).setSaldoDeCuenta(Double.parseDouble(cellEditEvent.getNewValue().toString()));
+            }
+        });
+
     }
 
     @FXML
