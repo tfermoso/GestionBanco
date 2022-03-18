@@ -41,7 +41,8 @@ public class FicheroJackson implements iFichero {
                 banco=new ObjectMapper().readValue(datos, Banco.class);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            banco=new Banco();
         }
 
         return banco;

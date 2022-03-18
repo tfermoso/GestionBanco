@@ -2,10 +2,8 @@ package com.example.gestionbanco.models;
 
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class CCC {
     public double saldoDeCuenta;
@@ -34,7 +32,8 @@ public class CCC {
 
     public void setIngreso(double cantidad){
         saldoDeCuenta+=cantidad;
-        String mensaje = LocalDateTime.now().toString()+ ":ingreso: "+cantidad;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String mensaje = LocalDateTime.now().format(formatter)+ "#ingreso# "+cantidad;
         HashMap<String,String> mov=new HashMap<>();
         mov.put("ingreso",mensaje);
         movimientos.add(mov);
@@ -42,7 +41,8 @@ public class CCC {
 
     public void setReintegro(double cantidad){
         saldoDeCuenta-=cantidad;
-        String mensaje = LocalDateTime.now().toString()+ ":retirada: "+cantidad;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String mensaje = LocalDateTime.now().format(formatter)+ "#retirada# "+cantidad;
         HashMap<String,String> mov=new HashMap<>();
         mov.put("reintegro",mensaje);
         movimientos.add(mov);

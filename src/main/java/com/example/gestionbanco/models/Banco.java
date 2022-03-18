@@ -4,6 +4,8 @@ package com.example.gestionbanco.models;
 import com.example.gestionbanco.interfaces.iBanco;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Banco implements iBanco {
     public ArrayList<CCC> cuentas;
@@ -63,6 +65,12 @@ public class Banco implements iBanco {
         }
         return mov;
     }
+
+    public List<HashMap<String,String>> getMovimientos(String titular){
+        CCC c=getCuenta(titular);
+        return c.getMovimientos();
+    }
+
 
     @Override
     public String verCuenta(String nombre) {

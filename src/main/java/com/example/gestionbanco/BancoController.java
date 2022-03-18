@@ -2,6 +2,7 @@ package com.example.gestionbanco;
 
 import com.example.gestionbanco.models.Banco;
 import com.example.gestionbanco.models.CCC;
+import com.example.gestionbanco.models.Movimiento;
 import com.example.gestionbanco.persistencia.Fichero;
 import com.example.gestionbanco.persistencia.FicheroJackson;
 import javafx.collections.FXCollections;
@@ -26,6 +27,10 @@ import javafx.util.converter.DoubleStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class BancoController {
@@ -39,15 +44,20 @@ public class BancoController {
     @FXML
     protected AnchorPane panelCrearCuenta,paneVerCuenta;
     @FXML
-    protected TableView tblCuentas;
+    protected TableView tblCuentas,tblMovimientos;
     @FXML
-    protected TableColumn cTitular,cCuenta,cSaldo;
+    protected TableColumn cTitular,cCuenta,cSaldo,cTipo,cCantidad,cFecha;
 
     private Banco banco;
 
     public BancoController() {
         FicheroJackson fichero=new FicheroJackson();
-        banco=fichero.leerDatos("datos-banco.json");
+        try{
+            banco=fichero.leerDatos("datos-banco.json");
+        }catch (Exception e){
+            banco=new Banco();
+        }
+
         System.out.println("creando controlador");
 
     }
@@ -64,10 +74,31 @@ public class BancoController {
                     CCC clickedRow = row.getItem();
                     lblcuenta.setText(clickedRow.datosCuenta());
                     lblCuentaSeleccionada.setText(clickedRow.getNombreDelTitular());
+                    mostrarMovimientos(clickedRow.getNombreDelTitular());
                 }
             });
             return row ;
         });
+    }
+
+    private void mostrarMovimientos(String nombreDelTitular) {
+        List<HashMap<String,String>> mov=banco.getMovimientos(nombreDelTitular);
+        ObservableList<Movimiento> movimientos=FXCollections.observableArrayList();
+        for (int i = 0; i < mov.size(); i++) {
+            String key=mov.get(i).keySet().stream().toArray()[0].toString();
+            String dato=mov.get(i).get(key);
+            String[] datos=dato.split("#");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime dateTime = LocalDateTime.parse(datos[0], formatter);
+            Movimiento movimiento=new Movimiento(dateTime,datos[1],Double.valueOf(datos[2]));
+            movimientos.add(movimiento);
+        }
+        cFecha.setCellValueFactory(new PropertyValueFactory("fecha"));
+        cTipo.setCellValueFactory(new PropertyValueFactory("tipo"));
+        cCantidad.setCellValueFactory(new PropertyValueFactory("cantidad"));
+        tblMovimientos.setItems(movimientos);
+        tblMovimientos.setVisible(true);
+
     }
 
     private void limpiarTabla(){
@@ -124,6 +155,7 @@ public class BancoController {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
+            tblCuentas.refresh();
         } catch (IOException e) {
             e.printStackTrace();
         }

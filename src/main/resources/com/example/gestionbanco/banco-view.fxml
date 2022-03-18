@@ -37,6 +37,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -93,7 +94,7 @@
           </font>
         </Label>
             <Label layoutX="28.0" layoutY="14.0" text="Nombre: " />
-            <AnchorPane id="panelVerCuenta" fx:id="paneVerCuenta" layoutX="16.0" layoutY="49.0" prefHeight="600.0" prefWidth="840.0">
+            <AnchorPane id="panelVerCuenta" fx:id="paneVerCuenta" layoutX="18.0" layoutY="71.0" prefHeight="527.0" prefWidth="840.0">
                <children>
                   <Button layoutX="14.0" layoutY="40.0" mnemonicParsing="false" onAction="#btnMostrarCuenta" prefHeight="26.0" prefWidth="122.0" text="Ver cuenta" />
                   <Label fx:id="lblcuenta" layoutX="14.0" layoutY="79.0" prefHeight="210.0" prefWidth="349.0" style="-fx-background-color: white; -fx-border-color: black;" />
@@ -104,12 +105,19 @@
                       <TableColumn fx:id="cSaldo" minWidth="4.0" prefWidth="112.79998779296875" text="Saldo" />
                     </columns>
                   </TableView>
-
-                   <Label layoutX="14.0" layoutY="317.0" text="Cuenta Seleccionada:" />
+                  <Label layoutX="14.0" layoutY="317.0" text="Cuenta Seleccionada:" />
                   <Label fx:id="lblCuentaSeleccionada" layoutX="152.0" layoutY="317.0" />
                   <TextField fx:id="txtCantidad" layoutX="293.0" layoutY="313.0" promptText="Cantidad" />
                   <Button layoutX="455.0" layoutY="313.0" mnemonicParsing="false" onAction="#btnOperar" prefHeight="26.0" prefWidth="84.0" text="Ingresar" />
                   <Button layoutX="562.0" layoutY="313.0" mnemonicParsing="false" onAction="#btnOperar" prefHeight="26.0" prefWidth="90.0" text="Retirar" />
+                  <Separator layoutX="14.0" layoutY="349.0" prefHeight="0.0" prefWidth="786.0" />
+                  <TableView fx:id="tblMovimientos" layoutX="368.0" layoutY="349.0" prefHeight="200.0" prefWidth="443.0" visible="false">
+                     <columns>
+                        <TableColumn fx:id="cFecha" prefWidth="160.0" text="Fecha" />
+                        <TableColumn fx:id="cTipo" prefWidth="122.39999389648438" text="Tipo Movimiento" />
+                        <TableColumn fx:id="cCantidad" prefWidth="156.79998779296875" text="Cantidad" />
+                     </columns>
+                  </TableView>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="panelCrearCuenta" layoutX="14.0" layoutY="78.0" prefHeight="200.0" prefWidth="432.0" visible="false">
