@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionbanco.TranferenciaController">
+   <children>
+      <TableView fx:id="tblCuentas" layoutX="228.0" layoutY="100.0" prefHeight="251.0" prefWidth="340.0">
+        <columns>
+          <TableColumn fx:id="cTitular" prefWidth="117.5999755859375" text="Titular" />
+          <TableColumn fx:id="cCuenta" prefWidth="101.60003662109375" text="Cuenta" />
+            <TableColumn fx:id="cSaldo" prefWidth="120.0" text="Saldo" />
+        </columns>
+      </TableView>
+      <Button layoutX="30.0" layoutY="318.0" mnemonicParsing="false" onAction="#btnTransferencia" prefHeight="26.0" prefWidth="163.0" text="Realizar transferencia" />
+      <TextField fx:id="txtDestino" layoutX="30.0" layoutY="239.0" prefHeight="26.0" prefWidth="174.0" />
+      <TextField fx:id="txtOrigen" layoutX="31.0" layoutY="163.0" prefHeight="26.0" prefWidth="174.0" />
+      <Label layoutX="30.0" layoutY="135.0" text="Cuenta Origen" />
+      <Label layoutX="31.0" layoutY="209.0" text="Cuenta destino" />
+      <Label layoutX="31.0" layoutY="28.0" text="Ventana de Transferencias">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtCantidad" layoutX="30.0" layoutY="279.0" promptText="Cantidad a transferir" />
+   </children>
+</AnchorPane>

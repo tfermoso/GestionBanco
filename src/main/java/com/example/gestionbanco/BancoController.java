@@ -10,16 +10,21 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.DoubleStringConverter;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -34,9 +39,9 @@ public class BancoController {
     @FXML
     protected AnchorPane panelCrearCuenta,paneVerCuenta;
     @FXML
-    protected TableView tblCuentas;
+    protected TableView tblCuentas,tblCuentas2;
     @FXML
-    protected TableColumn cTitular,cCuenta,cSaldo;
+    protected TableColumn cTitular,cCuenta,cSaldo,cTitular2,cCuenta2,cSaldo2;
 
     private Banco banco;
 
@@ -50,7 +55,7 @@ public class BancoController {
     public void initialize() {
         System.out.println("Inicializando");
         showList();
-        /*
+
         tblCuentas.setRowFactory(tv -> {
             TableRow<CCC> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -63,8 +68,18 @@ public class BancoController {
             });
             return row ;
         });
-                 */
 
+        tblCuentas2.setRowFactory(tv -> {
+            TableRow<CCC> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (! row.isEmpty() && event.getButton()== MouseButton.PRIMARY
+                        && event.getClickCount() == 2) {
+                    CCC clickedRow = row.getItem();
+                    System.out.println(clickedRow.getNombreDelTitular());
+                }
+            });
+            return row ;
+        });
 
 
     }
@@ -80,6 +95,7 @@ public class BancoController {
             list.add(banco.getCuentas().get(i));
         }
         tblCuentas.setItems(list);
+        tblCuentas2.setItems(list);
     }
 
     public void showList(){
@@ -92,7 +108,6 @@ public class BancoController {
         cTitular.setCellFactory(TextFieldTableCell.forTableColumn());
         cCuenta.setCellValueFactory(new PropertyValueFactory("numeroDeCuenta"));
         //cSaldo.setCellValueFactory(new PropertyValueFactory("saldoDeCuenta"));
-        cSaldo.setCellValueFactory(new PropertyValueFactory<CCC,Double>("saldoDeCuenta"));
         tblCuentas.setItems(list);
         cTitular.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent>() {
             @Override
@@ -102,13 +117,36 @@ public class BancoController {
         });
         DoubleStringConverter converter = new DoubleStringConverter();
         cSaldo.setCellFactory(TextFieldTableCell.<CCC, Double>forTableColumn(converter));
-
         cSaldo.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent>() {
             @Override
             public void handle(TableColumn.CellEditEvent cellEditEvent) {
                 ((CCC)cellEditEvent.getRowValue()).setSaldoDeCuenta(Double.parseDouble(cellEditEvent.getNewValue().toString()));
             }
         });
+        cTitular2.setCellValueFactory(new PropertyValueFactory("nombreDelTitular"));
+        cCuenta2.setCellValueFactory(new PropertyValueFactory("numeroDeCuenta"));
+        cSaldo2.setCellValueFactory(new PropertyValueFactory("saldoDeCuenta"));
+        tblCuentas2.setItems(list);
+
+    }
+    @FXML
+    protected void itemHacerTransferencia(){
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("transferencia-view.fxml"));
+        try {
+            Parent root = loader.load();
+            TranferenciaController tranferenciaController=loader.getController();
+            tranferenciaController.setBanco(banco);
+            tranferenciaController.inicializar();
+            tranferenciaController.bancoController=this;
+            Scene scene=new Scene(root);
+            Stage stage=new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -202,4 +240,8 @@ public class BancoController {
         fichero.guardarDatos(banco,"datos-banco.json");
         stage.close();
     }
+
+
+
+
 }
