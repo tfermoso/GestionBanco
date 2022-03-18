@@ -93,7 +93,7 @@
           </font>
         </Label>
             <Label layoutX="28.0" layoutY="14.0" text="Nombre: " />
-            <AnchorPane id="panelVerCuenta" fx:id="paneVerCuenta" layoutX="16.0" layoutY="49.0" prefHeight="581.0" prefWidth="840.0">
+            <AnchorPane id="panelVerCuenta" fx:id="paneVerCuenta" layoutX="16.0" layoutY="49.0" prefHeight="600.0" prefWidth="840.0">
                <children>
                   <Button layoutX="14.0" layoutY="40.0" mnemonicParsing="false" onAction="#btnMostrarCuenta" prefHeight="26.0" prefWidth="122.0" text="Ver cuenta" />
                   <Label fx:id="lblcuenta" layoutX="14.0" layoutY="79.0" prefHeight="210.0" prefWidth="349.0" style="-fx-background-color: white; -fx-border-color: black;" />
@@ -104,13 +104,6 @@
                       <TableColumn fx:id="cSaldo" minWidth="4.0" prefWidth="112.79998779296875" text="Saldo" />
                     </columns>
                   </TableView>
-                   <TableView fx:id="tblCuentas2" layoutX="395.0" layoutY="352.0" prefHeight="200.0" prefWidth="407.0">
-                       <columns>
-                           <TableColumn fx:id="cTitular2" prefWidth="111.99996948242188" text="Titular" />
-                           <TableColumn fx:id="cCuenta2" prefWidth="176.79998779296875" text="Nº de Cuenta" />
-                           <TableColumn fx:id="cSaldo2" minWidth="4.0" prefWidth="112.79998779296875" text="Saldo" />
-                       </columns>
-                   </TableView>
 
                    <Label layoutX="14.0" layoutY="317.0" text="Cuenta Seleccionada:" />
                   <Label fx:id="lblCuentaSeleccionada" layoutX="152.0" layoutY="317.0" />

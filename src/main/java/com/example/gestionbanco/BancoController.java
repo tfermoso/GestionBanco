@@ -39,9 +39,9 @@ public class BancoController {
     @FXML
     protected AnchorPane panelCrearCuenta,paneVerCuenta;
     @FXML
-    protected TableView tblCuentas,tblCuentas2;
+    protected TableView tblCuentas;
     @FXML
-    protected TableColumn cTitular,cCuenta,cSaldo,cTitular2,cCuenta2,cSaldo2;
+    protected TableColumn cTitular,cCuenta,cSaldo;
 
     private Banco banco;
 
@@ -68,20 +68,6 @@ public class BancoController {
             });
             return row ;
         });
-
-        tblCuentas2.setRowFactory(tv -> {
-            TableRow<CCC> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (! row.isEmpty() && event.getButton()== MouseButton.PRIMARY
-                        && event.getClickCount() == 2) {
-                    CCC clickedRow = row.getItem();
-                    System.out.println(clickedRow.getNombreDelTitular());
-                }
-            });
-            return row ;
-        });
-
-
     }
 
     private void limpiarTabla(){
@@ -95,7 +81,6 @@ public class BancoController {
             list.add(banco.getCuentas().get(i));
         }
         tblCuentas.setItems(list);
-        tblCuentas2.setItems(list);
     }
 
     public void showList(){
@@ -107,7 +92,7 @@ public class BancoController {
         cTitular.setCellValueFactory(new PropertyValueFactory<CCC, String>("nombreDelTitular"));
         cTitular.setCellFactory(TextFieldTableCell.forTableColumn());
         cCuenta.setCellValueFactory(new PropertyValueFactory("numeroDeCuenta"));
-        //cSaldo.setCellValueFactory(new PropertyValueFactory("saldoDeCuenta"));
+        cSaldo.setCellValueFactory(new PropertyValueFactory("saldoDeCuenta"));
         tblCuentas.setItems(list);
         cTitular.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent>() {
             @Override
@@ -123,11 +108,6 @@ public class BancoController {
                 ((CCC)cellEditEvent.getRowValue()).setSaldoDeCuenta(Double.parseDouble(cellEditEvent.getNewValue().toString()));
             }
         });
-        cTitular2.setCellValueFactory(new PropertyValueFactory("nombreDelTitular"));
-        cCuenta2.setCellValueFactory(new PropertyValueFactory("numeroDeCuenta"));
-        cSaldo2.setCellValueFactory(new PropertyValueFactory("saldoDeCuenta"));
-        tblCuentas2.setItems(list);
-
     }
     @FXML
     protected void itemHacerTransferencia(){
